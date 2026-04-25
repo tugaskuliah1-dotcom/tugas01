@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GMKI 5.0 | Layanan Pengaduan & Bantuan Hukum</title>
+    <!-- Google Fonts & Font Awesome 6 (ikon ringan untuk aksesibilitas visual) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefefe;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* container sistem */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ========== HEADER / NAVBAR ========== */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(0px);
+        }
+
+        .nav-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #3b82f6;
+        }
+
+        /* menu utama */
+        .nav-links ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #2c3e66;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        /* tombol aksi (masuk & daftar) */
+        .nav-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #cbd5e1;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e293b;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+        }
+
+        /* ========== HERO SECTION (PENGADUAN) ========== */
+        .hero {
+            padding: 70px 0 80px;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 48px;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            flex: 1.2;
+            min-width: 280px;
+        }
+
+        .hero-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #0f172a, #1e3a8a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #334155;
+            margin-bottom: 20px;
+            max-width: 560px;
+        }
+
+        .hero-highlight {
+            background: #f1f5f9;
+            padding: 18px 24px;
+            border-left: 4px solid #2563eb;
+            border-radius: 16px;
+            margin: 28px 0 32px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-highlight i {
+            font-size: 1.8rem;
+            color: #2563eb;
+        }
+
+        .hero-highlight p {
+            margin: 0;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .btn-large {
+            padding: 14px 36px;
+            font-size: 1rem;
+            border-radius: 44px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s;
+        }
+
+        .hero-visual {
+            flex: 0.8;
+            min-width: 240px;
+            text-align: center;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 36px;
+            padding: 30px 20px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .hero-card i {
+            font-size: 4rem;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .hero-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero-card p {
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        /* ========== INFO TAMBAHAN (KONSULTASI & AKSI) ========== */
+        .services-section {
+            padding: 50px 0 70px;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #0f172a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 32px 24px;
+            border-radius: 28px;
+            text-align: center;
+            transition: 0.25s ease;
+            border: 1px solid #eef2ff;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: #b9d0ff;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            background: #e6f0ff;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: #2563eb;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #475569;
+        }
+
+        /* ========== FOOTER (GMKI 5.0 + ALAMAT) ========== */
+        .footer {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 48px 0 28px;
+            margin-top: 20px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 36px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .footer-brand p {
+            max-width: 280px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-contact .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            width: 28px;
+            font-size: 1.2rem;
+            color: #60a5fa;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid #1e293b;
+            margin-top: 40px;
+            padding-top: 24px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links ul {
+                justify-content: center;
+                gap: 18px;
+            }
+            .nav-actions {
+                justify-content: center;
+                margin-top: 8px;
+            }
+            .hero-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-highlight {
+                justify-content: center;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .nav-links ul {
+                gap: 14px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .btn-outline, .btn-primary {
+                padding: 6px 16px;
+            }
+            .feature-card {
+                padding: 24px 16px;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 28px;
+            }
+        }
+
+        /* tambahan akses link tombol */
+        a {
+            cursor: pointer;
+        }
+        .btn-large i, .btn-outline i, .btn-primary i {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION / HEADER -->
+<header class="navbar">
+    <div class="container nav-container">
+        <div class="logo">
+            <h1>GMKI 5.0</h1>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="#">Ruang Berita</a></li>
+                <li><a href="#">Karier</a></li>
+                <li><a href="#">E-Learning</a></li>
+                <li><a href="#">Katalog</a></li>
+                <li><a href="#">Anggota</a></li>
+                <li><a href="#">Finansial</a></li>
+            </ul>
+        </div>
+        <div class="nav-actions">
+            <a href="#" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Masuk</a>
+            <a href="#" class="btn-primary"><i class="fas fa-user-plus"></i> Daftar</a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN CONTENT: Layanan Pengaduan -->
+<main>
+    <!-- Hero utama : Bantuan layanan pengaduan -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-gavel"></i>  Bantuan Hukum & Advokasi
+                </div>
+                <h1>Bantuan Layanan Pengaduan</h1>
+                <p>GMKI menyediakan layanan pengaduan penutupan gereja atau permasalahan hukum lainnya. Kami disini akan membantu menyelesaikan permasalahan dengan konsultasi maupun aksi.</p>
+                
+                <div class="hero-highlight">
+                    <i class="fas fa-handshake"></i>
+                    <p><strong>Konsultasi Hukum Gratis • Pendampingan Aksi • Advokasi Kebebasan Beragama</strong><br>Tim kami siap mendampingi setiap langkah perjuangan keadilan.</p>
+                </div>
+                
+                <a href="#" class="btn-primary btn-large"><i class="fas fa-arrow-right"></i> Tinjau Lebih lanjut</a>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <i class="fas fa-scale-balanced"></i>
+                    <h3>#GMKIPeduli</h3>
+                    <p>Layanan aduan 24 jam untuk penutupan rumah ibadah & konflik hukum</p>
+                    <div style="margin-top: 20px; font-size: 0.8rem; background:#eef2ff; border-radius: 50px; padding: 6px 12px; display: inline-block;">
+                        <i class="fas fa-phone-alt"></i> Hotline: 0851-1234567
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian gambaran solusi : konsultasi & aksi (mendukung deskripsi) -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Solusi <span style="color:#2563eb;">Cepat & Humanis</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h4>Konsultasi Hukum</h4>
+                    <p>Tim advokat dan relawan hukum siap memberikan panduan strategis serta analisis kasus secara rahasia.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-people-arrows"></i>
+                    </div>
+                    <h4>Aksi & Advokasi</h4>
+                    <p>Gerakan nyata, audiensi, dan pendampingan di pengadilan untuk memastikan keadilan ditegakkan.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h4>Penutupan Gereja</h4>
+                    <p>Penguatan hak konstitusional, mediasi bersama pemerintah, hingga jalur litigasi jika diperlukan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER: alamat, kontak, informasi GMKI 5.0 -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h3>GMKI 5.0</h3>
+            <p>Gerakan Mahasiswa Kristen Indonesia — pusat advokasi, pendidikan, dan perjuangan kebebasan beragama.</p>
+        </div>
+        <div class="footer-contact">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Jl. Gatot Subroto RT 05 RW 01 No.31, Meruya, Depok 14531</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>Telp: 0851-1234567</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>pengaduan@gmki50.or.id</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-globe"></i>
+                <span>www.gmki50.id</span>
+            </div>
+        </div>
+        <div style="min-width: 160px;">
+            <p style="font-weight: 500; margin-bottom: 12px;"><i class="fas fa-shield-alt"></i> Layanan Pengaduan</p>
+            <ul style="list-style: none; line-height: 1.8;">
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Laporan Anonim</li>
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Pendampingan Pastoral</li>
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Fast Response Tim Hukum</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <i class="far fa-copyright"></i> 2026 GMKI 5.0 - Melayani, Mengadvokasi, Memerdekakan. Seluruh hak cipta dilindungi.
+    </div>
+</footer>
+
+<!-- optional script hanya untuk efek navigasi interaktif sederhana (tidak merubah tampilan utama) -->
+<script>
+    // hanya efek console / smooth scroll untuk anchor, tidak mengganggu tampilan
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    // tambahan: membuat tombol tinjau lebih lanjut menuju section layanan
+    const detailBtn = document.querySelector('.btn-large');
+    if (detailBtn) {
+        detailBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('.services-section')?.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    // kecilkan interaksi menu dummy (informasi)
+    console.log('GMKI 5.0 - Layanan Pengaduan Siap Membantu');
+</script>
+</body>
+</html>
