@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan Footer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body { margin:0; font-family: Arial; }
+
+        /* paste CSS footer di sini */
+        /* ========== FOOTER ========== */
+.footer {
+    background: #003c7c;
+    color: #e2e8f0;
+    padding: 48px 0 28px;
+    margin-top: 20px;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.footer-brand h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.footer-brand p {
+    max-width: 280px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-contact .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+.contact-item i {
+    width: 28px;
+    font-size: 1.2rem;
+    color: #60a5fa;
+}
+
+.footer-copyright {
+    border-top: 1px solid #1e293b;
+    margin-top: 40px;
+    padding-top: 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 28px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center; padding: 50px;">Contoh Desain Footer</h1>
+
+    <!-- paste HTML footer di sini -->
+    <footer class="footer">
+    <div class="footer-container">
+
+        <!-- BRAND -->
+        <div class="footer-brand">
+            <h3>GMKI 5.0</h3>
+            <p>Gerakan Mahasiswa Kristen Indonesia — pusat advokasi, pendidikan, dan perjuangan kebebasan beragama.</p>
+        </div>
+
+        <!-- KONTAK -->
+        <div class="footer-contact">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Jl. Gatot Subroto RT 05 RW 01 No.31, Meruya, Depok 14531</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>Telp: 0851-1234567</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>pengaduan@gmki50.or.id</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-globe"></i>
+                <span>www.gmki50.id</span>
+            </div>
+        </div>
+
+        <!-- LAYANAN -->
+        <div style="min-width: 160px;">
+            <p style="font-weight: 500; margin-bottom: 12px;">
+                <i class="fas fa-shield-alt"></i> Layanan Pengaduan
+            </p>
+            <ul style="list-style: none; line-height: 1.8;">
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Laporan Anonim</li>
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Pendampingan Pastoral</li>
+                <li><i class="fas fa-check-circle" style="font-size: 0.7rem; margin-right: 6px;"></i> Fast Response Tim Hukum</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-copyright">
+        <i class="far fa-copyright"></i> 2026 GMKI 5.0 - Seluruh hak cipta dilindungi.
+    </div>
+</footer>
+
+</body>
+</html>
