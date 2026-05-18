@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - GMRKI 5.0 E-Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.2);
+            position: relative;
+        }
+        
+        .view-link {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .view-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 18px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            background-color: #f0f4ff;
+            color: #1e3c72;
+        }
+        
+        .tab-btn.active {
+            background-color: #1e3c72;
+            color: white;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #1e3c72;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #1e3c72;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1e3c72;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2a5298;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #4a5568;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2d3748;
+        }
+        
+        .btn-success {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c53030;
+        }
+        
+        .btn-info {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background-color: #2c5282;
+        }
+        
+        /* Module List */
+        .module-list {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .module-card {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module-header {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .module-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+        
+        .module-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn {
+            background-color: #4299e1;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #3182ce;
+        }
+        
+        .delete-btn {
+            background-color: #fc8181;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background-color: #f56565;
+        }
+        
+        .module-content {
+            padding: 20px;
+        }
+        
+        .module-description {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .video-count {
+            font-size: 14px;
+            color: #718096;
+            background-color: #edf2f7;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        /* Video List in Edit Mode */
+        .video-list-edit {
+            margin-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .video-item-edit {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .video-item-edit:hover {
+            background-color: #edf2f7;
+        }
+        
+        .video-info-edit {
+            flex-grow: 1;
+        }
+        
+        .video-title-edit {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .video-id-edit {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .video-actions-edit {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Add Video Form */
+        .add-video-form {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+        
+        /* Messages */
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: none;
+        }
+        
+        .message.success {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .message.error {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+        
+        /* Preview Section */
+        .preview-container {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+        
+        .preview-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* Instructions */
+        .instructions {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h3 {
+            color: #234e52;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            color: #234e52;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .module-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .video-item-edit {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .video-actions-edit {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+            
+            .view-link {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 15px;
+                display: inline-block;
+            }
+        }
+        
+        /* Loading Indicator */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-cogs"></i> Admin Panel GMRKI 5.0</h1>
+            <p>Kelola modul pembelajaran dan video tutorial untuk platform e-learning</p>
+            <a href="index.html" class="view-link">
+                <i class="fas fa-eye"></i> Lihat Halaman Tampilan
+            </a>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> Petunjuk Penggunaan</h3>
+            <ul>
+                <li>Data disimpan otomatis di browser Anda (localStorage)</li>
+                <li>Perubahan akan langsung terlihat di halaman tampilan setelah direfresh</li>
+                <li>ID YouTube bisa didapat dari link video (contoh: youtube.com/watch?v=<strong>VIDEO_ID</strong>)</li>
+                <li>Durasi video menggunakan format <strong>MM:SS</strong> (contoh: 15:30)</li>
+            </ul>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="modules-tab">
+                <i class="fas fa-book-open"></i> Kelola Modul
+            </button>
+            <button class="tab-btn" data-tab="add-module-tab">
+                <i class="fas fa-plus-circle"></i> Tambah Modul Baru
+            </button>
+            <button class="tab-btn" data-tab="preview-tab">
+                <i class="fas fa-eye"></i> Pratinjau Data
+            </button>
+        </div>
+        
+        <!-- Messages -->
+        <div class="message success" id="successMessage">
+            <i class="fas fa-check-circle"></i> <span id="messageText">Perubahan berhasil disimpan!</span>
+        </div>
+        
+        <div class="message error" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i> <span id="errorText">Terjadi kesalahan. Silakan coba lagi.</span>
+        </div>
+        
+        <!-- Tab 1: Manage Modules -->
+        <div class="tab-content active" id="modules-tab">
+            <h2 class="section-title"><i class="fas fa-edit"></i> Edit Modul yang Sudah Ada</h2>
+            <p class="module-description">Pilih modul yang ingin Anda edit dari daftar di bawah ini:</p>
+            
+            <div class="loading" id="loadingIndicator">
+                <i class="fas fa-spinner fa-spin"></i> Memuat data...
+            </div>
+            
+            <div class="module-list" id="moduleList">
+                <!-- Module cards will be populated by JavaScript -->
+            </div>
+            
+            <!-- Module Edit Form (hidden by default) -->
+            <div class="add-video-form" id="moduleEditForm" style="display: none;">
+                <h3 class="section-title" id="editFormTitle">Edit Modul</h3>
+                
+                <form id="editModuleForm">
+                    <input type="hidden" id="editModuleId">
+                    
+                    <div class="form-group">
+                        <label for="editModuleTitle" class="form-label">Judul Modul</label>
+                        <input type="text" id="editModuleTitle" class="form-control" placeholder="Contoh: Modul 1: Pengenalan Dasar Pemrograman" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editModuleDescription" class="form-label">Deskripsi Modul</label>
+                        <textarea id="editModuleDescription" class="form-control" placeholder="Deskripsi lengkap tentang apa yang akan dipelajari dalam modul ini" required></textarea>
+                    </div>
+                    
+                    <h4 class="preview-title" style="margin-top: 30px;">Video dalam Modul Ini</h4>
+                    <div class="video-list-edit" id="editVideoList">
+                        <!-- Video list for editing will be populated here -->
+                    </div>
+                    
+                    <div class="add-video-form" id="addVideoFormInEdit" style="margin-top: 20px;">
+                        <h4 class="preview-title">Tambah Video Baru ke Modul Ini</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="newVideoTitle" class="form-label">Judul Video</label>
+                                <input type="text" id="newVideoTitle" class="form-control" placeholder="Contoh: Pengenalan Variabel">
+                            </div>
+                            <div class="form-col">
+                                <label for="newVideoDuration" class="form-label">Durasi Video</label>
+                                <input type="text" id="newVideoDuration" class="form-control" placeholder="Contoh: 15:30">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newVideoYoutubeId" class="form-label">ID Video YouTube</label>
+                            <input type="text" id="newVideoYoutubeId" class="form-control" placeholder="Contoh: Kk0X_oxxR8s">
+                            <small style="color: #666;">ID YouTube adalah kode unik setelah "v=" di URL YouTube. Contoh: https://www.youtube.com/watch?v=<strong>Kk0X_oxxR8s</strong></small>
+                        </div>
+                        
+                        <button type="button" class="btn btn-success" id="addVideoToModuleBtn">
+                            <i class="fas fa-plus"></i> Tambah Video ke Modul
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Simpan Perubahan Modul
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelEditModuleBtn">
+                            <i class="fas fa-times"></i> Batal Edit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Add New Module -->
+        <div class="tab-content" id="add-module-tab">
+            <h2 class="section-title"><i class="fas fa-plus-circle"></i> Buat Modul Baru</h2>
+            
+            <form id="addModuleForm">
+                <div class="form-group">
+                    <label for="newModuleTitle" class="form-label">Judul Modul</label>
+                    <input type="text" id="newModuleTitle" class="form-control" placeholder="Contoh: Modul 9: Pemrograman Lanjutan" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newModuleDescription" class="form-label">Deskripsi Modul</label>
+                    <textarea id="newModuleDescription" class="form-control" placeholder="Jelaskan apa yang akan dipelajari dalam modul baru ini" required></textarea>
+                </div>
+                
+                <div class="add-video-form">
+                    <h4 class="preview-title">Tambahkan Video ke Modul Baru</h4>
+                    <p>Anda bisa menambahkan video sekarang atau nanti setelah modul dibuat.</p>
+                    
+                    <div id="newModuleVideos">
+                        <!-- Video inputs for new module will be added here -->
+                    </div>
+                    
+                    <button type="button" class="btn btn-success" id="addVideoToNewModuleBtn" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Tambah Video
+                    </button>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Simpan Modul Baru
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="resetNewModuleForm">
+                        <i class="fas fa-redo"></i> Reset Form
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Tab 3: Preview Data -->
+        <div class="tab-content" id="preview-tab">
+            <h2 class="section-title"><i class="fas fa-eye"></i> Pratinjau Data Modul</h2>
+            <p>Berikut adalah data modul yang saat ini tersimpan di sistem:</p>
+            
+            <div class="preview-container">
+                <h4 class="preview-title">Data JSON Modul</h4>
+                <p>Data di bawah ini dapat disalin dan digunakan untuk backup atau transfer data:</p>
+                <div class="preview-content">
+                    <pre id="moduleDataPreview" style="white-space: pre-wrap; word-wrap: break-word; font-family: monospace; background-color: #f1f5f9; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto;"></pre>
+                </div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="copyJsonBtn">
+                        <i class="fas fa-copy"></i> Salin JSON ke Clipboard
+                    </button>
+                    <button class="btn btn-info" id="refreshPreviewBtn">
+                        <i class="fas fa-sync-alt"></i> Refresh Pratinjau
+                    </button>
+                    <button class="btn btn-danger" id="clearAllDataBtn">
+                        <i class="fas fa-trash"></i> Hapus Semua Data
+                    </button>
+                    <button class="btn btn-secondary" id="loadDefaultDataBtn">
+                        <i class="fas fa-undo"></i> Muat Data Default
+                    </button>
+                </div>
+            </div>
+            
+            <div class="preview-container" style="margin-top: 30px;">
+                <h4 class="preview-title">Statistik Data</h4>
+                <div class="preview-content">
+                    <div id="dataStats" style="font-size: 16px;">
+                        <!-- Statistics will be populated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="preview-container" style="margin-top: 30px;">
+                <h4 class="preview-title">Ekspor/Impor Data</h4>
+                <div class="preview-content">
+                    <div class="form-group">
+                        <label class="form-label">Ekspor Data ke File</label>
+                        <button class="btn btn-primary" id="exportDataBtn">
+                            <i class="fas fa-download"></i> Ekspor Data ke File JSON
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Impor Data dari File JSON</label>
+                        <input type="file" id="importFileInput" class="form-control" accept=".json">
+                        <button class="btn btn-success" id="importDataBtn" style="margin-top: 10px;">
+                            <i class="fas fa-upload"></i> Impor Data dari File
+                        </button>
+                        <small style="color: #666;">Pilih file JSON yang sebelumnya diekspor</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==============================
+        // KONFIGURASI DAN VARIABEL GLOBAL
+        // ==============================
+        
+        // Key untuk localStorage
+        const STORAGE_KEY = 'gmrkiModuleData';
+        
+        // Data default jika localStorage kosong
+        const defaultModuleData = [
+            {
+                id: 1,
+                title: "Modul 1: Pengenalan Dasar",
+                description: "Pelajari dasar-dasar pemrograman dari nol. Modul ini cocok untuk pemula yang belum pernah belajar pemrograman sebelumnya.",
+                videos: [
+                    { id: 1, title: "Apa itu Pemrograman?", youtubeId: "Kk0X_oxxR8s", duration: "15:30" },
+                    { id: 2, title: "Mengapa Belajar Pemrograman?", youtubeId: "9XvFwDc_3jk", duration: "12:45" },
+                    { id: 3, title: "Bahasa Pemrograman Populer", youtubeId: "RcO_pGf2NCA", duration: "18:20" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Modul 2: Variabel dan Tipe Data",
+                description: "Memahami konsep variabel dan berbagai tipe data yang digunakan dalam pemrograman.",
+                videos: [
+                    { id: 4, title: "Konsep Variabel dalam Pemrograman", youtubeId: "cGxXoB6Tk4c", duration: "14:10" },
+                    { id: 5, title: "Tipe Data Dasar", youtubeId: "y62zj9ozlOM", duration: "16:35" }
+                ]
+            }
+        ];
+        
+        // Data modul - akan diambil dari localStorage
+        let moduleData = [];
+        
+        // DOM Elements
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const moduleList = document.getElementById('moduleList');
+        const moduleEditForm = document.getElementById('moduleEditForm');
+        const editModuleForm = document.getElementById('editModuleForm');
+        const editVideoList = document.getElementById('editVideoList');
+        const addModuleForm = document.getElementById('addModuleForm');
+        const newModuleVideos = document.getElementById('newModuleVideos');
+        const moduleDataPreview = document.getElementById('moduleDataPreview');
+        const dataStats = document.getElementById('dataStats');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const messageText = document.getElementById('messageText');
+        const errorText = document.getElementById('errorText');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // ==============================
+        // FUNGSI UNTUK LOCALSTORAGE
+        // ==============================
+        
+        /**
+         * Memuat data dari localStorage
+         */
+        function loadDataFromLocalStorage() {
+            try {
+                console.log('Memuat data dari localStorage...');
+                const savedData = localStorage.getItem(STORAGE_KEY);
+                
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
+                    
+                    // Validasi data
+                    if (Array.isArray(parsedData)) {
+                        console.log('Data berhasil dimuat dari localStorage:', parsedData.length, 'modul');
+                        return parsedData;
+                    } else {
+                        console.warn('Data di localStorage tidak valid');
+                    }
+                } else {
+                    console.log('Tidak ada data di localStorage');
+                }
+            } catch (error) {
+                console.error('Error loading data from localStorage:', error);
+            }
+            return null;
+        }
+        
+        /**
+         * Menyimpan data ke localStorage
+         */
+        function saveDataToLocalStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(moduleData));
+                console.log('Data berhasil disimpan ke localStorage');
+                return true;
+            } catch (error) {
+                console.error('Error saving data to localStorage:', error);
+                return false;
+            }
+        }
+        
+        /**
+         * Memuat data awal (dari localStorage atau default)
+         */
+        function initializeData() {
+            loadingIndicator.classList.add('show');
+            
+            // Coba muat dari localStorage
+            const savedData = loadDataFromLocalStorage();
+            
+            if (savedData) {
+                moduleData = savedData;
+            } else {
+                // Gunakan data default
+                moduleData = JSON.parse(JSON.stringify(defaultModuleData));
+                console.log('Menggunakan data default');
+                
+                // Simpan data default ke localStorage
+                saveDataToLocalStorage();
+            }
+            
+            loadingIndicator.classList.remove('show');
+        }
+        
+        // ==============================
+        // FUNGSI MANAJEMEN MODUL
+        // ==============================
+        
+        /**
+         * Render daftar modul
+         */
+        function renderModuleList() {
+            moduleList.innerHTML = '';
+            
+            if (moduleData.length === 0) {
+                moduleList.innerHTML = '<p style="text-align: center; color: #666; padding: 30px;">Belum ada modul. Silakan tambah modul baru.</p>';
+                return;
+            }
+            
+            moduleData.forEach(module => {
+                const moduleCard = document.createElement('div');
+                moduleCard.className = 'module-card';
+                moduleCard.innerHTML = `
+                    <div class="module-header">
+                        <div class="module-title">${module.title}</div>
+                        <div class="module-actions">
+                            <button class="action-btn edit-btn" data-module-id="${module.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn" data-module-id="${module.id}">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <p class="module-description">${module.description.substring(0, 150)}${module.description.length > 150 ? '...' : ''}</p>
+                        <div class="video-count">
+                            <i class="fas fa-video"></i> ${module.videos.length} Video
+                        </div>
+                    </div>
+                `;
+                
+                moduleList.appendChild(moduleCard);
+            });
+            
+            // Add event listeners for edit buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const moduleId = parseInt(this.getAttribute('data-module-id'));
+                    openEditModuleForm(moduleId);
+                });
+            });
+            
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const moduleId = parseInt(this.getAttribute('data-module-id'));
+                    deleteModule(moduleId);
+                });
+            });
+        }
+        
+        /**
+         * Buka form edit modul
+         * @param {number} moduleId - ID modul yang akan diedit
+         */
+        function openEditModuleForm(moduleId) {
+            const module = moduleData.find(m => m.id === moduleId);
+            if (!module) {
+                showMessage('Modul tidak ditemukan', 'error');
+                return;
+            }
+            
+            // Set form values
+            document.getElementById('editModuleId').value = module.id;
+            document.getElementById('editModuleTitle').value = module.title;
+            document.getElementById('editModuleDescription').value = module.description;
+            document.getElementById('editFormTitle').textContent = `Edit ${module.title}`;
+            
+            // Render video list for editing
+            renderEditVideoList(module.videos);
+            
+            // Show form and scroll to it
+            moduleEditForm.style.display = 'block';
+            moduleEditForm.scrollIntoView({ behavior: 'smooth' });
+            
+            // Switch to modules tab if not already
+            switchTab('modules-tab');
+        }
+        
+        /**
+         * Render daftar video untuk diedit
+         * @param {Array} videos - Array video
+         */
+        function renderEditVideoList(videos) {
+            editVideoList.innerHTML = '';
+            
+            if (videos.length === 0) {
+                editVideoList.innerHTML = '<p style="color: #666; text-align: center;">Belum ada video dalam modul ini.</p>';
+                return;
+            }
+            
+            videos.forEach(video => {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item-edit';
+                videoItem.innerHTML = `
+                    <div class="video-info-edit">
+                        <div class="video-title-edit">${video.title}</div>
+                        <div class="video-id-edit">ID YouTube: ${video.youtubeId} | Durasi: ${video.duration}</div>
+                    </div>
+                    <div class="video-actions-edit">
+                        <button class="action-btn edit-btn edit-video-btn" data-video-id="${video.id}">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn delete-video-btn" data-video-id="${video.id}">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                `;
+                
+                editVideoList.appendChild(videoItem);
+            });
+            
+            // Add event listeners for edit video buttons
+            document.querySelectorAll('.edit-video-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = parseInt(this.getAttribute('data-video-id'));
+                    const moduleId = parseInt(document.getElementById('editModuleId').value);
+                    editVideo(moduleId, videoId);
+                });
+            });
+            
+            // Add event listeners for delete video buttons
+            document.querySelectorAll('.delete-video-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videoId = parseInt(this.getAttribute('data-video-id'));
+                    const moduleId = parseInt(document.getElementById('editModuleId').value);
+                    deleteVideo(moduleId, videoId);
+                });
+            });
+        }
+        
+        /**
+         * Edit video tertentu
+         * @param {number} moduleId - ID modul
+         * @param {number} videoId - ID video
+         */
+        function editVideo(moduleId, videoId) {
+            const module = moduleData.find(m => m.id === moduleId);
+            if (!module) return;
+            
+            const video = module.videos.find(v => v.id === videoId);
+            if (!video) return;
+            
+            // Create a modal-like prompt for editing
+            const newTitle = prompt("Edit judul video:", video.title);
+            if (newTitle === null) return; // User cancelled
+            
+            const newYoutubeId = prompt("Edit ID YouTube:", video.youtubeId);
+            if (newYoutubeId === null) return;
+            
+            const newDuration = prompt("Edit durasi video (format: MM:SS):", video.duration);
+            if (newDuration === null) return;
+            
+            // Update video
+            video.title = newTitle;
+            video.youtubeId = newYoutubeId;
+            video.duration = newDuration;
+            
+            // Save and refresh
+            saveDataToLocalStorage();
+            renderEditVideoList(module.videos);
+            renderModuleList();
+            showMessage('Video berhasil diperbarui.', 'success');
+        }
+        
+        /**
+         * Hapus video
+         * @param {number} moduleId - ID modul
+         * @param {number} videoId - ID video
+         */
+        function deleteVideo(moduleId, videoId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus video ini?')) return;
+            
+            const module = moduleData.find(m => m.id === moduleId);
+            if (!module) return;
+            
+            module.videos = module.videos.filter(v => v.id !== videoId);
+            
+            // Save and refresh
+            saveDataToLocalStorage();
+            renderEditVideoList(module.videos);
+            renderModuleList();
+            showMessage('Video berhasil dihapus.', 'success');
+        }
+        
+        /**
+         * Hapus modul
+         * @param {number} moduleId - ID modul
+         */
+        function deleteModule(moduleId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus modul ini? Semua video dalam modul ini juga akan dihapus.')) return;
+            
+            moduleData = moduleData.filter(m => m.id !== moduleId);
+            
+            // Save and refresh
+            saveDataToLocalStorage();
+            renderModuleList();
+            moduleEditForm.style.display = 'none';
+            showMessage('Modul berhasil dihapus.', 'success');
+        }
+        
+        /**
+         * Tambah video ke modul (dalam mode edit)
+         */
+        function addVideoToModule() {
+            const moduleId = parseInt(document.getElementById('editModuleId').value);
+            const module = moduleData.find(m => m.id === moduleId);
+            if (!module) return;
+            
+            const title = document.getElementById('newVideoTitle').value;
+            const youtubeId = document.getElementById('newVideoYoutubeId').value;
+            const duration = document.getElementById('newVideoDuration').value;
+            
+            if (!title || !youtubeId || !duration) {
+                showMessage('Harap isi semua field untuk menambahkan video.', 'error');
+                return;
+            }
+            
+            // Validate YouTube ID format (simple check)
+            if (youtubeId.length !== 11) {
+                showMessage('ID YouTube harus terdiri dari 11 karakter.', 'error');
+                return;
+            }
+            
+            // Generate new video ID
+            const allVideoIds = moduleData.flatMap(m => m.videos.map(v => v.id));
+            const newVideoId = allVideoIds.length > 0 ? Math.max(...allVideoIds) + 1 : 1;
+            
+            // Add video to module
+            module.videos.push({
+                id: newVideoId,
+                title,
+                youtubeId,
+                duration
+            });
+            
+            // Save and refresh
+            saveDataToLocalStorage();
+            renderEditVideoList(module.videos);
+            renderModuleList();
+            
+            // Clear form
+            document.getElementById('newVideoTitle').value = '';
+            document.getElementById('newVideoYoutubeId').value = '';
+            document.getElementById('newVideoDuration').value = '';
+            
+            showMessage('Video berhasil ditambahkan ke modul.', 'success');
+        }
+        
+        // ==============================
+        // FUNGSI UNTUK MODUL BARU
+        // ==============================
+        
+        /**
+         * Buat input video untuk modul baru
+         * @param {number} index - Index video
+         * @returns {HTMLElement} Div berisi input video
+         */
+        function createVideoInput(index = 0) {
+            const videoDiv = document.createElement('div');
+            videoDiv.className = 'video-input-group';
+            videoDiv.style.marginBottom = '15px';
+            videoDiv.style.padding = '15px';
+            videoDiv.style.backgroundColor = '#f1f5f9';
+            videoDiv.style.borderRadius = '6px';
+            videoDiv.innerHTML = `
+                <h5 style="margin-bottom: 10px; color: #4a5568;">Video ${index + 1}</h5>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label class="form-label">Judul Video</label>
+                        <input type="text" class="form-control video-title" placeholder="Judul video" required>
+                    </div>
+                    <div class="form-col">
+                        <label class="form-label">Durasi Video</label>
+                        <input type="text" class="form-control video-duration" placeholder="Contoh: 15:30" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ID Video YouTube</label>
+                    <input type="text" class="form-control video-youtube-id" placeholder="Contoh: Kk0X_oxxR8s" required>
+                </div>
+                <button type="button" class="action-btn delete-btn remove-video-btn" style="margin-top: 10px;">
+                    <i class="fas fa-times"></i> Hapus Video Ini
+                </button>
+            `;
+            
+            return videoDiv;
+        }
+        
+        /**
+         * Update pratinjau data
+         */
+        function updatePreview() {
+            // Format JSON for display
+            const formattedJson = JSON.stringify(moduleData, null, 2);
+            moduleDataPreview.textContent = formattedJson;
+            
+            // Calculate statistics
+            const totalModules = moduleData.length;
+            const totalVideos = moduleData.reduce((total, module) => total + module.videos.length, 0);
+            
+            dataStats.innerHTML = `
+                <p><strong>Jumlah Modul:</strong> ${totalModules}</p>
+                <p><strong>Jumlah Video:</strong> ${totalVideos}</p>
+                <p><strong>Status Penyimpanan:</strong> <span style="color: #38a169;">Data tersimpan di browser lokal</span></p>
+                <p><strong>Key Storage:</strong> ${STORAGE_KEY}</p>
+                <p><strong>Terakhir diperbarui:</strong> ${new Date().toLocaleString()}</p>
+            `;
+        }
+        
+        // ==============================
+        // FUNGSI UTILITAS
+        // ==============================
+        
+        /**
+         * Tampilkan pesan
+         * @param {string} text - Teks pesan
+         * @param {string} type - Jenis pesan (success, error)
+         */
+        function showMessage(text, type) {
+            if (type === 'success') {
+                messageText.textContent = text;
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                errorText.textContent = text;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        /**
+         * Ganti tab
+         * @param {string} tabId - ID tab yang akan ditampilkan
+         */
+        function switchTab(tabId) {
+            // Update tab buttons
+            tabBtns.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update tab contents
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+            
+            // If preview tab, update the preview
+            if (tabId === 'preview-tab') {
+                updatePreview();
+            }
+        }
+        
+        /**
+         * Reset form edit modul
+         */
+        function resetEditForm() {
+            moduleEditForm.style.display = 'none';
+            document.getElementById('editModuleForm').reset();
+        }
+        
+        /**
+         * Reset form modul baru
+         */
+        function resetNewModuleForm() {
+            addModuleForm.reset();
+            newModuleVideos.innerHTML = '';
+            
+            // Tambah satu input video kosong
+            const initialVideoInput = createVideoInput(0);
+            newModuleVideos.appendChild(initialVideoInput);
+            
+            // Add event listener for remove button
+            initialVideoInput.querySelector('.remove-video-btn').addEventListener('click', function() {
+                initialVideoInput.remove();
+            });
+        }
+        
+        /**
+         * Ekspor data ke file JSON
+         */
+        function exportDataToFile() {
+            const dataStr = JSON.stringify(moduleData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            // Create download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(dataBlob);
+            downloadLink.download = `gmrki-module-data-${new Date().toISOString().split('T')[0]}.json`;
+            
+            // Trigger download
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            showMessage('Data berhasil diekspor ke file JSON.', 'success');
+        }
+        
+        /**
+         * Impor data dari file JSON
+         */
+        function importDataFromFile(file) {
+            if (!file) {
+                showMessage('Pilih file terlebih dahulu.', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Validasi data
+                    if (!Array.isArray(importedData)) {
+                        throw new Error('Format data tidak valid');
+                    }
+                    
+                    // Konfirmasi sebelum mengimpor
+                    if (confirm(`Anda akan mengimpor ${importedData.length} modul. Data lama akan digantikan. Lanjutkan?`)) {
+                        moduleData = importedData;
+                        saveDataToLocalStorage();
+                        renderModuleList();
+                        updatePreview();
+                        showMessage(`Data berhasil diimpor: ${importedData.length} modul`, 'success');
+                    }
+                } catch (error) {
+                    console.error('Error importing data:', error);
+                    showMessage('Gagal mengimpor data. Pastikan file JSON valid.', 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        /**
+         * Hapus semua data
+         */
+        function clearAllData() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
+                moduleData = [];
+                saveDataToLocalStorage();
+                renderModuleList();
+                resetEditForm();
+                updatePreview();
+                showMessage('Semua data berhasil dihapus.', 'success');
+            }
+        }
+        
+        /**
+         * Muat data default
+         */
+        function loadDefaultData() {
+            if (confirm('Muat data default? Data saat ini akan digantikan.')) {
+                moduleData = JSON.parse(JSON.stringify(defaultModuleData));
+                saveDataToLocalStorage();
+                renderModuleList();
+                updatePreview();
+                showMessage('Data default berhasil dimuat.', 'success');
+            }
+        }
+        
+        // ==============================
+        // INISIALISASI APLIKASI
+        // ==============================
+        
+        /**
+         * Inisialisasi aplikasi
+         */
+        function init() {
+            console.log('Menginisialisasi admin panel...');
+            
+            // Load data
+            initializeData();
+            
+            // Render module list
+            renderModuleList();
+            
+            // Setup tab switching
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Edit module form submission
+            editModuleForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const moduleId = parseInt(document.getElementById('editModuleId').value);
+                const module = moduleData.find(m => m.id === moduleId);
+                if (!module) return;
+                
+                // Update module
+                module.title = document.getElementById('editModuleTitle').value;
+                module.description = document.getElementById('editModuleDescription').value;
+                
+                // Save and refresh
+                saveDataToLocalStorage();
+                renderModuleList();
+                
+                showMessage('Modul berhasil diperbarui.', 'success');
+                
+                // Hide edit form
+                resetEditForm();
+            });
+            
+            // Cancel edit module
+            document.getElementById('cancelEditModuleBtn').addEventListener('click', resetEditForm);
+            
+            // Add video to module button
+            document.getElementById('addVideoToModuleBtn').addEventListener('click', addVideoToModule);
+            
+            // Add video to new module button
+            document.getElementById('addVideoToNewModuleBtn').addEventListener('click', function() {
+                const index = newModuleVideos.children.length;
+                const videoInput = createVideoInput(index);
+                newModuleVideos.appendChild(videoInput);
+                
+                // Add event listener for remove button
+                videoInput.querySelector('.remove-video-btn').addEventListener('click', function() {
+                    videoInput.remove();
+                });
+            });
+            
+            // Add new module form submission
+            addModuleForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('newModuleTitle').value;
+                const description = document.getElementById('newModuleDescription').value;
+                
+                if (!title || !description) {
+                    showMessage('Judul dan deskripsi modul harus diisi.', 'error');
+                    return;
+                }
+                
+                // Generate new module ID
+                const newModuleId = moduleData.length > 0 ? Math.max(...moduleData.map(m => m.id)) + 1 : 1;
+                
+                // Collect videos from form
+                const videos = [];
+                const videoInputs = newModuleVideos.querySelectorAll('.video-input-group');
+                
+                let videoId = moduleData.reduce((maxId, module) => {
+                    const moduleMaxId = module.videos.length > 0 ? Math.max(...module.videos.map(v => v.id)) : 0;
+                    return Math.max(maxId, moduleMaxId);
+                }, 0);
+                
+                videoInputs.forEach((input, index) => {
+                    const videoTitle = input.querySelector('.video-title').value;
+                    const videoYoutubeId = input.querySelector('.video-youtube-id').value;
+                    const videoDuration = input.querySelector('.video-duration').value;
+                    
+                    if (videoTitle && videoYoutubeId && videoDuration) {
+                        // Validate YouTube ID
+                        if (videoYoutubeId.length !== 11) {
+                            showMessage(`ID YouTube pada video ${index + 1} harus 11 karakter.`, 'error');
+                            return;
+                        }
+                        
+                        videoId++;
+                        videos.push({
+                            id: videoId,
+                            title: videoTitle,
+                            youtubeId: videoYoutubeId,
+                            duration: videoDuration
+                        });
+                    }
+                });
+                
+                // Create new module
+                const newModule = {
+                    id: newModuleId,
+                    title,
+                    description,
+                    videos
+                };
+                
+                // Add to data
+                moduleData.push(newModule);
+                
+                // Save and refresh
+                saveDataToLocalStorage();
+                renderModuleList();
+                
+                // Reset form
+                resetNewModuleForm();
+                
+                // Switch to modules tab
+                switchTab('modules-tab');
+                
+                showMessage('Modul baru berhasil ditambahkan.', 'success');
+            });
+            
+            // Reset new module form
+            document.getElementById('resetNewModuleForm').addEventListener('click', resetNewModuleForm);
+            
+            // Copy JSON to clipboard
+            document.getElementById('copyJsonBtn').addEventListener('click', function() {
+                const jsonText = JSON.stringify(moduleData, null, 2);
+                navigator.clipboard.writeText(jsonText)
+                    .then(() => {
+                        showMessage('JSON berhasil disalin ke clipboard.', 'success');
+                    })
+                    .catch(err => {
+                        showMessage('Gagal menyalin JSON: ' + err, 'error');
+                    });
+            });
+            
+            // Refresh preview button
+            document.getElementById('refreshPreviewBtn').addEventListener('click', updatePreview);
+            
+            // Export data button
+            document.getElementById('exportDataBtn').addEventListener('click', exportDataToFile);
+            
+            // Import data button
+            document.getElementById('importDataBtn').addEventListener('click', function() {
+                const fileInput = document.getElementById('importFileInput');
+                if (fileInput.files.length > 0) {
+                    importDataFromFile(fileInput.files[0]);
+                } else {
+                    showMessage('Pilih file terlebih dahulu.', 'error');
+                }
+            });
+            
+            // Clear all data button
+            document.getElementById('clearAllDataBtn').addEventListener('click', clearAllData);
+            
+            // Load default data button
+            document.getElementById('loadDefaultDataBtn').addEventListener('click', loadDefaultData);
+            
+            // Initialize with one video input in new module form
+            resetNewModuleForm();
+            
+            console.log('Admin panel siap digunakan');
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
